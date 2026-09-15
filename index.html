@@ -3,1109 +3,1047 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Match Analyst Pro - Value Betting</title>
+    <title>Match Analyst Pro - Terminale Operativo</title>
+    
+    <!-- Tailwind CSS (Framework Grafico) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        dark: '#080d17',
-                        card: '#0f172a',
-                        primary: '#eab308',
-                        primaryhover: '#facc15',
-                        success: '#10b981',
-                        danger: '#ef4444',
-                        warning: '#f59e0b',
-                        info: '#38bdf8',
-                        gray: {
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#1e293b',
-                            800: '#0f172a',
-                            900: '#080d17',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS: Tema Midnight & Yellow (Value Bet Edition) -->
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #080d17; color: #f8fafc; }
-        .glass-panel { background: #0f172a; border: 1px solid #1e293b; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #080d17; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #334155; }
-        .tab-btn.active { border-bottom: 2px solid #eab308; color: #eab308; }
-        input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        /* Impostazioni Base */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #0B1120; /* Sfondo Notte Profonda */
+            color: #E2E8F0; /* Testo Grigio Chiaro */
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Pannelli Effetto Vetro Scuro */
+        .glass-panel { 
+            background-color: #111827; 
+            border: 1px solid #1F2937; 
+            border-radius: 0.75rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25); 
+            transition: all 0.3s ease;
+        }
+        
+        /* Input di Testo e Numerici */
+        .input-dark { 
+            background-color: #1F2937; 
+            border: 1px solid #374151; 
+            color: #F3F4F6; 
+            border-radius: 0.375rem; 
+            padding: 0.75rem; 
+            width: 100%; 
+            font-size: 0.95rem;
+            transition: all 0.2s ease-in-out; 
+        }
+        
+        .input-dark:focus { 
+            outline: none; 
+            border-color: #FACC15; /* Giallo Accento (Yellow-400) */
+            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+        }
+        
+        /* Bottone Principale (Giallo) */
+        .btn-primary { 
+            background-color: #FACC15; 
+            color: #000000; 
+            font-weight: 800; 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            width: 100%; 
+            font-size: 1.1rem;
+            transition: background-color 0.2s, transform 0.1s; 
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(250, 204, 21, 0.2);
+        }
+        
+        .btn-primary:hover { 
+            background-color: #EAB308; /* Giallo più scuro */
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+        
+        /* Terminale Output (Stile Codice) */
+        .terminal { 
+            background-color: #000000; 
+            color: #10B981; /* Verde Elettrico/Terminale */
+            font-family: 'Courier New', Courier, monospace; 
+            padding: 1.5rem; 
+            border-radius: 0.5rem; 
+            white-space: pre-wrap; 
+            font-size: 0.95rem; 
+            border: 1px solid #374151; 
+            line-height: 1.6;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Scrollbar Personalizzata Estesa */
+        ::-webkit-scrollbar { 
+            width: 10px; 
+            height: 10px; 
+        }
+        
+        ::-webkit-scrollbar-track { 
+            background: #0B1120; 
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb { 
+            background: #374151; 
+            border-radius: 5px; 
+            border: 2px solid #0B1120;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover { 
+            background: #4B5563; 
+        }
+        
+        /* Checkbox Dinamiche Personalizzate */
+        input[type="checkbox"] { 
+            accent-color: #FACC15; 
+            width: 1.25rem; 
+            height: 1.25rem; 
+            cursor: pointer;
+            border-radius: 0.25rem;
+        }
+        
+        /* Titoli di Sezione */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="p-3 sm:p-6 lg:p-8">
 
-    <nav class="bg-card border-b border-gray-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-chart-line text-primary text-2xl"></i>
-                    <div>
-                        <h1 class="text-xl font-bold tracking-tight">Match Analyst <span class="text-primary">Pro</span></h1>
-                    </div>
-                </div>
-                <div class="hidden md:flex space-x-4">
-                    <button onclick="switchTab('analisi')" id="tab-analisi" class="tab-btn active px-3 py-2 text-sm font-medium transition-colors hover:text-primary">Calcolatore Analisi</button>
-                    <button onclick="switchTab('registro')" id="tab-registro" class="tab-btn px-3 py-2 text-sm font-medium text-gray-400 transition-colors hover:text-primary">Registro Operativo</button>
-                    <button onclick="switchTab('kpi')" id="tab-kpi" class="tab-btn px-3 py-2 text-sm font-medium text-gray-400 transition-colors hover:text-primary">Dashboard KPI</button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile Tabs -->
-        <div class="md:hidden flex overflow-x-auto border-t border-gray-800 custom-scrollbar">
-            <button onclick="switchTab('analisi')" id="mob-tab-analisi" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium whitespace-nowrap">Calcolatore</button>
-            <button onclick="switchTab('registro')" id="mob-tab-registro" class="tab-btn flex-1 px-4 py-3 text-sm text-gray-400 font-medium whitespace-nowrap">Registro</button>
-            <button onclick="switchTab('kpi')" id="mob-tab-kpi" class="tab-btn flex-1 px-4 py-3 text-sm text-gray-400 font-medium whitespace-nowrap">KPI</button>
-        </div>
-    </nav>
+<!-- Contenitore Principale (Max Width 7xl per layout esteso) -->
+<div class="max-w-7xl mx-auto space-y-8">
 
-    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Intestazione Applicazione -->
+    <header class="text-center py-6 mb-4">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight uppercase">
+            Match Analyst <span class="text-yellow-400">Pro</span>
+        </h1>
+        <p class="text-gray-400 mt-3 text-sm md:text-base uppercase tracking-widest font-semibold">
+            Terminale Operativo Value Bet
+        </p>
+    </header>
+
+    <!-- Griglia Layout a 2 Colonne (su Desktop) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <div id="view-analisi" class="block animate-fade-in">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <!-- Inputs Form -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="glass-panel p-6 rounded-xl shadow-lg">
-                        
-                        <h2 class="text-lg font-semibold mb-4 border-b border-gray-700 pb-2 flex items-center"><i class="fa-solid fa-list-check text-primary mr-2 w-5"></i>1. Dati Match</h2>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">Squadra Casa</label>
-                                <input type="text" id="teamHome" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" placeholder="Es. Milan">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">Squadra Trasferta</label>
-                                <input type="text" id="teamAway" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" placeholder="Es. Inter">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">Competizione/Giornata</label>
-                                <input type="text" id="competition" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" placeholder="Es. Serie A G28">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1">Data e Ora</label>
-                                <input type="datetime-local" id="matchDate" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-gray-300">
-                            </div>
-                            <div class="col-span-2">
-                                <label class="block text-xs text-gray-400 mb-1">Arbitro Designato (Opzionale/Falli/Cartellini)</label>
-                                <input type="text" id="referee" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" placeholder="Es. Orsato">
-                            </div>
-                            <div class="col-span-2">
-                                <label class="block text-xs text-gray-400 mb-1">Formazioni Ufficiali e Infortunati</label>
-                                <textarea id="lineups" rows="3" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none custom-scrollbar" placeholder="Incolla qui formazioni e/o assenze rilevanti per il match."></textarea>
-                            </div>
-                        </div>
-
-                        <h2 class="text-lg font-semibold mt-6 mb-4 border-b border-gray-700 pb-2 flex items-center"><i class="fa-solid fa-layer-group text-primary mr-2 w-5"></i>2. Modello & Statistiche</h2>
-                        
-                        <div class="mb-4">
-                            <label class="block text-xs text-gray-400 mb-1">Seleziona Protocollo Analitico</label>
-                            <select id="analysisModel" onchange="renderModelInputs()" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none font-bold text-primary">
-                                <option value="match_goals">Match Goals (Over/Under 2.5/1.5)</option>
-                                <option value="team_goals">Team Goals (Over 1.5 Squadra)</option>
-                                <option value="corners">Calci d'Angolo (Match/Team)</option>
-                                <option value="cards">Cartellini (Match/Team)</option>
-                                <option value="shots_match">Tiri Totali (Match)</option>
-                                <option value="sot_match">Tiri in Porta (Match Totali)</option>
-                                <option value="sot_team">Tiri in Porta (Squadra)</option>
-                                <option value="sot_player">Tiri in Porta (Singolo Giocatore)</option>
-                                <option value="fouls_player">Falli Commessi (Giocatore Serie A)</option>
-                                <option value="fouls_suffered">Falli Subiti (Giocatore Serie A)</option>
-                                <option value="saves">Over Parate (Portiere)</option>
-                            </select>
-                        </div>
-
-                        <!-- Dynamic Inputs Container injected via JS -->
-                        <div id="dynamicModelInputs" class="mb-6"></div>
-
-                        <h2 class="text-lg font-semibold mt-6 mb-4 border-b border-gray-700 pb-2 flex items-center"><i class="fa-solid fa-scale-balanced text-primary mr-2 w-5"></i>3. Esecuzione & Quote</h2>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1 text-warning font-semibold">Quota Esecuzione</label>
-                                <input type="number" step="0.01" id="quotaBook" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-warning outline-none" placeholder="Es. 1.95">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-400 mb-1" title="Solo per paragone visivo">Quota Sisal/AAMS (Ref)</label>
-                                <input type="number" step="0.01" id="quotaSisal" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" placeholder="Es. 1.85 (Opzionale)">
-                            </div>
-                            <div class="col-span-2">
-                                <label class="block text-xs text-gray-400 mb-1">Bankroll Attuale (€)</label>
-                                <input type="number" step="1" id="bankroll" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1000">
-                            </div>
-                        </div>
-
-                        <button onclick="runAnalysis()" class="mt-8 w-full bg-primary hover:bg-primaryhover text-[#080d17] font-bold py-3 px-4 rounded-lg transition-all shadow-[0_0_15px_rgba(234,179,8,0.2)] hover:shadow-[0_0_25px_rgba(234,179,8,0.4)] flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-microchip"></i> Calcola Value bet
-                        </button>
+        <!-- ========================================== -->
+        <!-- COLONNA SINISTRA (INPUT DATI E MODELLI)    -->
+        <!-- ========================================== -->
+        <div class="lg:col-span-7 space-y-8">
+            
+            <!-- SEZIONE 1: Dati Match Generali -->
+            <div class="glass-panel p-6 sm:p-8">
+                <h2 class="section-title">
+                    <span class="text-yellow-400 text-2xl">📋</span> 1. Dati Match
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Squadra Casa</label>
+                        <input type="text" id="homeTeam" class="input-dark" placeholder="Es. Milan">
                     </div>
-                </div>
-
-                <div class="lg:col-span-7">
-                    <div class="glass-panel p-6 rounded-xl shadow-lg h-full flex flex-col relative">
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-4 mb-4">
-                            <h2 class="text-lg font-semibold"><i class="fa-solid fa-terminal text-primary mr-2"></i>Terminale Operativo</h2>
-                            <button onclick="copyOutput()" id="copyBtn" class="text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded transition-colors" style="display: none;">
-                                <i class="fa-regular fa-copy mr-1"></i> Copia Template
-                            </button>
-                        </div>
-                        
-                        <div id="resultsPlaceholder" class="flex-1 flex flex-col items-center justify-center text-gray-500 min-h-[400px] text-center px-4">
-                            <i class="fa-solid fa-print text-5xl mb-4 opacity-30"></i>
-                            <p class="max-w-md text-sm font-medium text-gray-400">Terminale in attesa di dati.</p>
-                            <p class="max-w-sm text-xs mt-2">Seleziona un modello, compila i dati tattici a sinistra e clicca su "Calcola".<br><br>Qui apparirà il referto matematico completo generato in automatico dall'algoritmo.</p>
-                        </div>
-
-                        <div id="resultsContent" class="hidden flex-1 flex flex-col gap-4 font-mono text-xs sm:text-sm overflow-y-auto custom-scrollbar pr-2 pb-16">
-                            <!-- JS Will Inject Content Here -->
-                        </div>
-                        
-                        <div id="quickAddContainer" class="absolute bottom-6 right-6 hidden">
-                            <button onclick="transferToRegister()" class="bg-success hover:bg-emerald-500 text-white shadow-lg px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 transition-transform transform hover:scale-105">
-                                <i class="fa-solid fa-plus"></i> Invia a Registro
-                            </button>
-                        </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Squadra Trasferta</label>
+                        <input type="text" id="awayTeam" class="input-dark" placeholder="Es. Inter">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Competizione e Giornata</label>
+                        <input type="text" id="competition" class="input-dark" placeholder="Es. Serie A G28">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Data e Ora</label>
+                        <input type="datetime-local" id="matchDate" class="input-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Arbitro Designato</label>
+                        <input type="text" id="referee" class="input-dark" placeholder="Es. Daniele Orsato">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Formazioni Ufficiali / Note</label>
+                        <input type="text" id="lineupsNotes" class="input-dark" placeholder="Incolla qui infortunati/note">
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="view-registro" class="hidden animate-fade-in">
-            <div class="glass-panel rounded-xl shadow-lg overflow-hidden flex flex-col h-[80vh]">
-                <div class="p-4 sm:p-6 border-b border-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-card">
-                    <div>
-                        <h2 class="text-lg font-semibold"><i class="fa-solid fa-book-open text-primary mr-2"></i>Registro Operativo</h2>
-                        <p class="text-xs text-gray-400 mt-1">Traccia ogni scommessa. I dati restano salvati localmente nel tuo browser.</p>
-                    </div>
-                    <button onclick="openAddBetModal()" class="bg-primary hover:bg-primaryhover text-[#080d17] px-4 py-2 rounded text-sm font-bold transition-colors whitespace-nowrap">
-                        <i class="fa-solid fa-plus mr-1"></i> Registra Manualmente
-                    </button>
+            <!-- SEZIONE 2: Selezione Modello e Parametri Statistici -->
+            <div class="glass-panel p-6 sm:p-8">
+                <h2 class="section-title">
+                    <span class="text-2xl">📊</span> 2. Modello & Statistiche
+                </h2>
+                
+                <div class="mb-6">
+                    <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">
+                        Seleziona Protocollo Analitico
+                    </label>
+                    <select id="analysisModel" class="input-dark bg-gray-800 text-base font-semibold" onchange="renderModelInputs()">
+                        <option value="match_goals">Match Goals (Over/Under 1.5 - 2.5 Totali)</option>
+                        <option value="team_goals">Team Goals (Over 1.5 Squadra Singola)</option>
+                        <option value="corners">Calci d'Angolo (Match / Team)</option>
+                        <option value="shots_total_match">Tiri Totali (Match - Linea Manuale)</option>
+                        <option value="sot_total_match">Tiri in Porta (Match Totali)</option>
+                        <option value="sot_team">Tiri in Porta (Team SOT)</option>
+                        <option value="sot_player">Tiri in Porta (Singolo Giocatore SOT)</option>
+                        <option value="fouls_comm">Falli Commessi (Singolo Giocatore)</option>
+                        <option value="fouls_suff">Falli Subiti (Singolo Giocatore)</option>
+                        <option value="saves">Over Parate (Portiere Individuale)</option>
+                        <option value="cards">Cartellini (Match / Team)</option>
+                    </select>
                 </div>
                 
-                <div class="flex-1 overflow-auto custom-scrollbar p-0">
-                    <table class="w-full text-left text-sm whitespace-nowrap">
-                        <thead class="bg-dark/80 sticky top-0 text-gray-400 text-xs uppercase z-10 backdrop-blur-md">
-                            <tr>
-                                <th class="px-4 py-3 font-medium">Data</th>
-                                <th class="px-4 py-3 font-medium">Match</th>
-                                <th class="px-4 py-3 font-medium">Mercato</th>
-                                <th class="px-4 py-3 font-medium text-center">Quota</th>
-                                <th class="px-4 py-3 font-medium text-center">Stake</th>
-                                <th class="px-4 py-3 font-medium">Esito</th>
-                                <th class="px-4 py-3 font-medium text-right">P&L</th>
-                                <th class="px-4 py-3 font-medium text-center">Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody id="betsTableBody" class="divide-y divide-gray-800 text-gray-300">
-                            <!-- Dynamic Bets List -->
-                        </tbody>
-                    </table>
+                <!-- Contenitore Dinamico per gli Input Specifici del Modello Selezionato -->
+                <div id="dynamic-inputs" class="space-y-6">
+                    <!-- Questo div verrà popolato via Javascript dalla funzione renderModelInputs() -->
                 </div>
             </div>
+
+            <!-- SEZIONE 3: Esecuzione, Quote e Calcolo -->
+            <div class="glass-panel p-6 sm:p-8">
+                <h2 class="section-title">
+                    <span class="text-yellow-400 text-2xl">💶</span> 3. Esecuzione
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Bankroll Attuale (€)</label>
+                        <input type="number" id="bankroll" class="input-dark text-lg font-bold text-yellow-400" placeholder="Es. 1000">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Quota Bookmaker</label>
+                        <input type="number" step="0.01" id="quotaBook" class="input-dark text-lg font-bold text-white" placeholder="Es. 1.85">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Quota Sisal (Paragone)</label>
+                        <input type="number" step="0.01" id="quotaSisal" class="input-dark text-lg font-bold text-gray-400" placeholder="Solo visivo (Opzionale)">
+                    </div>
+                </div>
+                
+                <button onclick="runAnalysis()" class="btn-primary flex items-center justify-center gap-3 text-xl py-4">
+                    <span class="text-2xl">⚡</span> Calcola Value Bet
+                </button>
+            </div>
+            
         </div>
 
-        <div id="view-kpi" class="hidden animate-fade-in">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold mb-2">Metriche di Sistema</h2>
-                <p class="text-sm text-gray-400">Valutazione oggettiva dell'edge reale basata sulle giocate chiuse.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="glass-panel p-6 rounded-xl border-t-2 border-primary relative overflow-hidden">
-                    <i class="fa-solid fa-money-bill-trend-up absolute -right-4 -bottom-4 text-7xl opacity-5 text-primary"></i>
-                    <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">ROI % Totale</p>
-                    <div class="flex items-end gap-2">
-                        <h3 id="kpi-roi" class="text-3xl font-bold">0.00%</h3>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">Profitto Netto / Vol. Scommesso</p>
-                </div>
-
-                <div class="glass-panel p-6 rounded-xl border-t-2 border-purple-500 relative overflow-hidden">
-                    <i class="fa-solid fa-bullseye absolute -right-4 -bottom-4 text-7xl opacity-5 text-purple-500"></i>
-                    <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">Win Rate</p>
-                    <div class="flex items-end gap-2">
-                        <h3 id="kpi-winrate" class="text-3xl font-bold">0.0%</h3>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">Percentuale di successo</p>
-                </div>
-
-                <div class="glass-panel p-6 rounded-xl border-t-2 border-emerald-500 relative overflow-hidden">
-                    <i class="fa-solid fa-scale-balanced absolute -right-4 -bottom-4 text-7xl opacity-5 text-emerald-500"></i>
-                    <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">Yield / Scommessa</p>
-                    <div class="flex items-end gap-2">
-                        <h3 id="kpi-yield" class="text-3xl font-bold">€0.00</h3>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">Valore assoluto medio generato</p>
-                </div>
-
-                <div class="glass-panel p-6 rounded-xl border-t-2 border-gray-500 relative overflow-hidden">
-                    <i class="fa-solid fa-database absolute -right-4 -bottom-4 text-7xl opacity-5 text-gray-500"></i>
-                    <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-1">Volume Campione</p>
-                    <div class="flex items-end gap-2">
-                        <h3 id="kpi-count" class="text-3xl font-bold">0</h3>
-                        <span class="text-xs text-gray-500 mb-1">Trades</span>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-2">Significatività statistica</p>
+        <!-- ========================================== -->
+        <!-- COLONNA DESTRA (TERMINALE DI OUTPUT)       -->
+        <!-- ========================================== -->
+        <div class="lg:col-span-5 space-y-8 flex flex-col">
+            
+            <!-- SEZIONE 4: Terminale Operativo (Referto) -->
+            <div class="glass-panel p-6 sm:p-8 flex flex-col h-full min-h-[600px]">
+                <h2 class="section-title">
+                    <span class="text-yellow-400 text-2xl">🖥️</span> 4. Terminale Operativo
+                </h2>
+                
+                <div id="terminal-output" class="terminal flex-grow overflow-y-auto">
+> INIZIALIZZAZIONE SISTEMA MATCH ANALYST PRO...
+> Caricamento protocolli operativi completato.
+> Motore Matematico (Poisson / Binomiale Negativa) online.
+> 
+> In attesa di inserimento dati...
+> Selezionare un protocollo, compilare le medie statistiche,
+> spuntare i correttivi tattici e avviare il calcolo per 
+> generare il referto completo.
                 </div>
             </div>
-        </div>
-
-    </main>
-
-    <div id="addBetModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4 opacity-0 transition-opacity">
-        <div class="bg-card border border-gray-700 rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-transform" id="addBetModalContent">
-            <div class="px-6 py-4 border-b border-gray-700 flex justify-between items-center bg-dark/50">
-                <h3 class="font-bold text-lg text-gray-100">Registra Operazione</h3>
-                <button onclick="closeAddBetModal()" class="text-gray-400 hover:text-white transition-colors"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="p-6 max-h-[80vh] overflow-y-auto custom-scrollbar">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 text-sm">
-                    <div>
-                        <label class="block text-gray-400 mb-1">Data</label>
-                        <input type="date" id="m_date" class="w-full bg-dark border border-gray-700 rounded p-2 focus:border-primary outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1">Match (Casa vs Trasferta)</label>
-                        <input type="text" id="m_match" class="w-full bg-dark border border-gray-700 rounded p-2 focus:border-primary outline-none" placeholder="Es. Roma vs Lazio">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1">Mercato (Es. Over 2.5)</label>
-                        <input type="text" id="m_market" class="w-full bg-dark border border-gray-700 rounded p-2 focus:border-primary outline-none" placeholder="Es. Over 2.5">
-                    </div>
-                    
-                    <div class="col-span-1 md:col-span-2 border-t border-gray-800 my-2"></div>
-                    
-                    <div>
-                        <label class="block text-gray-400 mb-1 text-warning font-semibold">Quota Esecuzione</label>
-                        <input type="number" step="0.01" id="m_quota" class="w-full bg-dark border border-gray-700 rounded p-2 focus:border-warning outline-none" placeholder="Es. 1.95">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1">Importo Scommesso (€)</label>
-                        <input type="number" step="0.1" id="m_stake" class="w-full bg-dark border border-gray-700 rounded p-2 focus:border-primary outline-none" placeholder="Es. 25">
-                    </div>
-                    <div>
-                        <label class="block text-gray-400 mb-1">Esito</label>
-                        <select id="m_result" class="w-full bg-dark border border-gray-700 rounded p-2 focus:border-primary outline-none font-bold">
-                            <option value="Attesa" class="text-warning">In Attesa...</option>
-                            <option value="Vinto" class="text-success">Vinto (+)</option>
-                            <option value="Perso" class="text-danger">Perso (-)</option>
-                            <option value="Void" class="text-gray-400">Void (Rimborso)</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="mt-6 flex justify-end gap-3 pt-4 border-t border-gray-700">
-                    <button onclick="closeAddBetModal()" class="px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors">Annulla</button>
-                    <button onclick="saveBet()" class="bg-primary hover:bg-primaryhover text-[#080d17] px-6 py-2 rounded text-sm font-bold transition-colors shadow-lg shadow-yellow-500/20">Salva nel Registro</button>
-                </div>
-            </div>
+            
         </div>
     </div>
 
-    <script>
-        let state = {
-            bets: JSON.parse(localStorage.getItem('matchAnalystData_bets')) || []
-        };
+    <!-- ========================================== -->
+    <!-- SEZIONE 5: REGISTRO OPERATIVO INFERIORE    -->
+    <!-- ========================================== -->
+    <div class="glass-panel p-6 sm:p-8 mt-10 overflow-x-auto w-full">
+        
+        <div class="flex justify-between items-center border-b border-gray-700 pb-4 mb-6">
+            <h2 class="section-title border-none mb-0 pb-0">
+                <span class="text-yellow-400 text-2xl">📁</span> 5. Registro Operativo
+            </h2>
+            <button onclick="clearRegister()" class="text-sm font-bold bg-red-900/40 text-red-400 px-5 py-2.5 rounded-lg hover:bg-red-800 transition-colors border border-red-800/50">
+                Svuota Registro
+            </button>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left whitespace-nowrap">
+                <thead class="text-xs text-gray-400 uppercase bg-gray-800 rounded-lg">
+                    <tr>
+                        <th class="px-6 py-4 rounded-tl-lg">Data</th>
+                        <th class="px-6 py-4">Match / Target</th>
+                        <th class="px-6 py-4">Mercato</th>
+                        <th class="px-6 py-4">Quota In</th>
+                        <th class="px-6 py-4">Stake Approvato</th>
+                        <th class="px-6 py-4">Esito</th>
+                        <th class="px-6 py-4">P&L</th>
+                        <th class="px-6 py-4 rounded-tr-lg text-center">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="register-body" class="divide-y divide-gray-700/50">
+                    <!-- Le righe generate tramite Javascript verranno iniettate qui dentro -->
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
 
-        let lastOutputText = "";
-        let currentAnalysisCache = null;
+</div> <!-- Fine Contenitore Principale -->
 
-        window.onload = () => {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-            document.getElementById('matchDate').value = now.toISOString().slice(0,16);
-            
-            renderModelInputs(); 
-            renderBetsTable();
-            updateKPIs();
-        };
+<!-- ========================================== -->
+<!-- SCRIPT JAVASCRIPT: MOTORE E LOGICA UI      -->
+<!-- ========================================== -->
+<script>
+    // Inizializza l'interfaccia al caricamento della pagina
+    document.addEventListener("DOMContentLoaded", () => {
+        renderModelInputs(); // Renderizza gli input del primo modello nel dropdown
+        loadRegister();      // Carica i dati salvati nel LocalStorage
+    });
 
-        // --- MATH & STATS FUNCTIONS ---
-        function factorial(n) {
-            if (n === 0 || n === 1) return 1;
-            let result = 1;
-            for (let i = 2; i <= n; i++) result *= i;
-            return result;
+    // ==========================================
+    // SEZIONE MATEMATICA E STATISTICA
+    // ==========================================
+    
+    /**
+     * Calcola la probabilità di un numero esatto di eventi (k) dato il valore atteso (lambda)
+     * Utilizza la formula standard della Distribuzione di Poisson
+     */
+    function calcPoisson(k, lambda) {
+        let p = Math.exp(-lambda);
+        for(let i = 1; i <= k; i++) { 
+            p *= (lambda / i); 
         }
-
-        function poisson(k, lambda) {
-            return Math.exp(-lambda) * Math.pow(lambda, k) / factorial(k);
+        return p;
+    }
+    
+    /**
+     * Calcola la probabilità cumulativa P(X <= k) sommando le probabilità esatte
+     * Serve per calcolare la probabilità dell'Under.
+     */
+    function calcCumulativePoisson(k, lambda) {
+        let cumulativeProb = 0;
+        for(let i = 0; i <= k; i++) { 
+            cumulativeProb += calcPoisson(i, lambda); 
         }
+        return cumulativeProb;
+    }
 
-        function poissonCDF(k, lambda) {
-            let sum = 0;
-            for (let i = 0; i <= k; i++) sum += poisson(i, lambda);
-            return sum;
+    /**
+     * Calcola la probabilità cumulativa usando la Distribuzione Binomiale Negativa.
+     * Richiesta dai protocolli ad alta varianza (Corner, SOT).
+     * Usa un 'varianceFactor' (es. 1.3 o 1.4) fornito dal PDF per stimare la dispersione.
+     */
+    function calcCumulativeNegativeBinomial_SOT(k, mean, varianceFactor) {
+        let variance = mean * varianceFactor;
+        
+        // Se la varianza stimata è minore o uguale alla media, la BN non è applicabile.
+        // Si effettua il fallback matematico automatico sulla distribuzione di Poisson.
+        if (variance <= mean) {
+            return calcCumulativePoisson(k, mean);
         }
-
-        // --- STREAMING_CHUNK:Dynamic UI Generation for Models... ---
-        function renderModelInputs() {
-            const model = document.getElementById('analysisModel').value;
-            const container = document.getElementById('dynamicModelInputs');
-            let html = '';
-
-            if (model === 'match_goals') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-2">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="over25">Over 2.5</option>
-                                <option value="under25">Under 2.5</option>
-                                <option value="over15">Over 1.5</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">λ Casa (xG Normalizzato)</label>
-                            <input type="number" step="0.01" id="xgHome" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.50">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">λ Trasferta (xG Normalizzato)</label>
-                            <input type="number" step="0.01" id="xgAway" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.20">
-                        </div>
-                    </div>`;
-            } else if (model === 'team_goals') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Squadra Analizzata</label>
-                            <select id="dyn_team" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-white">
-                                <option value="Casa">Squadra Casa</option>
-                                <option value="Trasferta">Squadra Trasferta</option>
-                            </select>
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="1">Over 1.5 (Team Goals)</option>
-                                <option value="0">Over 0.5 (Team Goals)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Gol Fatti Squadra</label>
-                            <input type="number" step="0.01" id="dyn_base" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.60">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio Subiti Avversario</label>
-                            <input type="number" step="0.01" id="dyn_ratio" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0" placeholder="1.0 = Media">
-                        </div>
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Tattici (Protocollo Over 1.5 Team)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.08" class="mod-check form-checkbox text-primary"> <span>Modulo Iper-Offensivo (+8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Pressing Alto (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.12" class="mod-check form-checkbox text-primary"> <span>Contropiede vs Linea Alta (+12%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.10" class="mod-check form-checkbox text-primary"> <span>Low Block Avversario (-10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.07" class="mod-check form-checkbox text-primary"> <span>Assenza DC Avv (+7%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.08" class="mod-check form-checkbox text-primary"> <span>Assenza Portiere Avv (+8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.12" class="mod-check form-checkbox text-primary"> <span>Assenza Punta Titolare (-12%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.04" class="mod-check form-checkbox text-primary"> <span>Fatigue < 72h (-4%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'corners') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Squadra Analizzata</label>
-                            <select id="dyn_team" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-white">
-                                <option value="Match Totali">Match (Entrambe)</option>
-                                <option value="Squadra Casa">Squadra Casa</option>
-                                <option value="Squadra Trasferta">Squadra Trasferta</option>
-                            </select>
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="8">Over 8.5</option>
-                                <option value="9">Over 9.5</option>
-                                <option value="10">Over 10.5</option>
-                                <option value="4">Over 4.5 (Singola Sq.)</option>
-                                <option value="5">Over 5.5 (Singola Sq.)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Corner Base (μ)</label>
-                            <input type="number" step="0.01" id="dyn_base" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="9.50">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio Concessione Avversario</label>
-                            <input type="number" step="0.01" id="dyn_ratio" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0">
-                        </div>
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (Protocollo Corner)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.08" class="mod-check form-checkbox text-primary"> <span>Volume Cross > 20 (+8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Tiri Bloccati Avv > 5 (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.05" class="mod-check form-checkbox text-primary"> <span>Arbitro Permissivo (+5%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.05" class="mod-check form-checkbox text-primary"> <span>Arbitro Severo (-5%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.05" class="mod-check form-checkbox text-primary"> <span>Pioggia Battente (+5%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.03" class="mod-check form-checkbox text-primary"> <span>Campo Largo > 68m (+3%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.10" class="mod-check form-checkbox text-primary"> <span>Modulo Ultra-Difensivo (-10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.08" class="mod-check form-checkbox text-primary"> <span>Assenza Ali Titolari (-8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.05" class="mod-check form-checkbox text-primary"> <span>Assenza Terzini (-5%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'cards') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Squadra Analizzata</label>
-                            <select id="dyn_team" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-white">
-                                <option value="Match Totali">Match (Entrambe)</option>
-                                <option value="Squadra Casa">Squadra Casa</option>
-                                <option value="Squadra Trasferta">Squadra Trasferta</option>
-                            </select>
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="3">Over 3.5</option>
-                                <option value="4">Over 4.5</option>
-                                <option value="5">Over 5.5</option>
-                                <option value="6">Over 6.5</option>
-                                <option value="1">Over 1.5 (Singola Sq.)</option>
-                                <option value="2">Over 2.5 (Singola Sq.)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Cartellini Base</label>
-                            <input type="number" step="0.01" id="dyn_base" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="4.50">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio Severità Arbitro</label>
-                            <input type="number" step="0.01" id="dyn_ratio" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0" placeholder="Es. 1.2 severo">
-                        </div>
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (Cartellini)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.15" class="mod-check form-checkbox text-primary"> <span>Derby / Scontro Salvezza (+15%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Squadre con Stile Aggressivo (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.10" class="mod-check form-checkbox text-primary"> <span>Match senza motivazioni (-10%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'shots_match') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-2">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato (Inserimento Manuale)</label>
-                            <input type="number" step="0.5" id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" placeholder="Es. 24.5">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Tiri Fatti - Casa</label>
-                            <input type="number" step="0.01" id="dyn_base_H" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="13.50">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Tiri Fatti - Trasferta</label>
-                            <input type="number" step="0.01" id="dyn_base_A" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="11.50">
-                        </div>
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (Tiri Totali Match)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Ritmo Alto / Box-to-Box (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.08" class="mod-check form-checkbox text-primary"> <span>Entrambe in Low Block (-8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.05" class="mod-check form-checkbox text-primary"> <span>Meteo Avverso/Pioggia (-5%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.05" class="mod-check form-checkbox text-primary"> <span>Arbitro molto fiscale (-5%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'sot_match') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-2">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="7">Over 7.5</option>
-                                <option value="8">Over 8.5</option>
-                                <option value="9">Over 9.5</option>
-                                <option value="10">Over 10.5</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media SOT Fatti - Casa</label>
-                            <input type="number" step="0.01" id="dyn_base_H" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="4.50">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media SOT Fatti - Trasferta</label>
-                            <input type="number" step="0.01" id="dyn_base_A" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="3.80">
-                        </div>
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (SOT Match Totali)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Ritmo Alto / Box-to-Box (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.08" class="mod-check form-checkbox text-primary"> <span>Entrambe in Low Block (-8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.05" class="mod-check form-checkbox text-primary"> <span>Meteo Avverso/Pioggia (-5%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.08" class="mod-check form-checkbox text-primary"> <span>Assenza Tiratori Chiave (-8%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'sot_team') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Squadra Analizzata</label>
-                            <select id="dyn_team" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-white">
-                                <option value="Casa">Squadra Casa</option>
-                                <option value="Trasferta">Squadra Trasferta</option>
-                            </select>
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="3">Over 3.5 (Team SOT)</option>
-                                <option value="4">Over 4.5 (Team SOT)</option>
-                                <option value="5">Over 5.5 (Team SOT)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media SOT Fatti (xS)</label>
-                            <input type="number" step="0.01" id="dyn_base" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="4.50">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio Concessione Avversario</label>
-                            <input type="number" step="0.01" id="dyn_ratio" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0">
-                        </div>
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (Protocollo SOT Team)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.05" class="mod-check form-checkbox text-primary"> <span>Fatigue < 72h (-5%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.08" class="mod-check form-checkbox text-primary"> <span>Assenza Tiratore/Regista (-8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.10" class="mod-check form-checkbox text-primary"> <span>Low Block Avversario (-10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.08" class="mod-check form-checkbox text-primary"> <span>Linea Alta Avversaria (+8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.06" class="mod-check form-checkbox text-primary"> <span>Dominio Possesso > 60% (+6%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.03" class="mod-check form-checkbox text-primary"> <span>Arbitro Severo (-3%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.05" class="mod-check form-checkbox text-primary"> <span>Meteo Avverso (-5%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'sot_player') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Nome Giocatore</label>
-                            <input type="text" id="dyn_player" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-white" placeholder="Es. L. Martinez">
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="0">Over 0.5 (Player SOT)</option>
-                                <option value="1">Over 1.5 (Player SOT)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Tiri in Porta/90m</label>
-                            <input type="number" step="0.01" id="dyn_base" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="0.80">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Minuti Previsti in Campo</label>
-                            <input type="number" step="1" id="dyn_mins" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="90">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio SOT Concessi Avversario</label>
-                            <input type="number" step="0.01" id="dyn_ratio" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0">
-                        </div>
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (Protocollo SOT Giocatori)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Rigorista Principale (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.05" class="mod-check form-checkbox text-primary"> <span>Punizioni Dirette (+5%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.08" class="mod-check form-checkbox text-primary"> <span>Low Block Avversario (-8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.08" class="mod-check form-checkbox text-primary"> <span>Linea Alta Avversaria (+8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.05" class="mod-check form-checkbox text-primary"> <span>Fatigue < 72h (-5%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Avanzamento Tattico (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.08" class="mod-check form-checkbox text-primary"> <span>Arretramento Tattico (-8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.06" class="mod-check form-checkbox text-primary"> <span>Assenza Difensore Diretto (+6%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'fouls_player') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Nome Giocatore</label>
-                            <input type="text" id="dyn_player" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-white" placeholder="Es. T. Hernandez">
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="0">Over 0.5 (Falli Commessi)</option>
-                                <option value="1">Over 1.5 (Falli Commessi)</option>
-                                <option value="2">Over 2.5 (Falli Commessi)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Falli Commessi/90m</label>
-                            <input type="number" step="0.01" id="dyn_base" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.20">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Minuti Previsti in Campo</label>
-                            <input type="number" step="1" id="dyn_mins" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="90">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio Falli Subiti Avv. Diretto</label>
-                            <input type="number" step="0.01" id="dyn_ratio" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio Severità Arbitro AIA</label>
-                            <input type="number" step="0.01" id="dyn_ref" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0">
-                        </div>
-                        
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (Protocollo Falli Serie A)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Matchup Corsia Esterna (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.12" class="mod-check form-checkbox text-primary"> <span>Mediano vs Trequartista (+12%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.08" class="mod-check form-checkbox text-primary"> <span>Pressing Alto (+8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.10" class="mod-check form-checkbox text-primary"> <span>Low Block (-10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Arbitro Severo (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.10" class="mod-check form-checkbox text-primary"> <span>Arbitro Permissivo (-10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.08" class="mod-check form-checkbox text-primary"> <span>Derby / Scontro Salvezza (+8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.03" class="mod-check form-checkbox text-primary"> <span>Fatigue < 72h (-3%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'fouls_suffered') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Nome Giocatore</label>
-                            <input type="text" id="dyn_player" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-white" placeholder="Es. K. Kvaratskhelia">
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="1">Over 1.5 (Falli Subiti)</option>
-                                <option value="2">Over 2.5 (Falli Subiti)</option>
-                                <option value="3">Over 3.5 (Falli Subiti)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Falli Subiti/90m</label>
-                            <input type="number" step="0.01" id="dyn_base" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.80">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Minuti Previsti in Campo</label>
-                            <input type="number" step="1" id="dyn_mins" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="90">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio Falli Commessi Avv.</label>
-                            <input type="number" step="0.01" id="dyn_ratio" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Ratio Severità Arbitro AIA</label>
-                            <input type="number" step="0.01" id="dyn_ref" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0">
-                        </div>
-                        
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (Falli Subiti)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Matchup Corsia Esterna (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Squadra in Low Block (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.10" class="mod-check form-checkbox text-primary"> <span>Arbitro Severo (+10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.10" class="mod-check form-checkbox text-primary"> <span>Arbitro Permissivo (-10%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.08" class="mod-check form-checkbox text-primary"> <span>Derby / Scontro Salvezza (+8%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.03" class="mod-check form-checkbox text-primary"> <span>Fatigue < 72h (-3%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            } else if (model === 'saves') {
-                html = `
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Nome Portiere</label>
-                            <input type="text" id="dyn_player" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none text-white" placeholder="Es. M. Maignan">
-                        </div>
-                        <div class="col-span-1">
-                            <label class="block text-xs text-gray-400 mb-1">Linea di Mercato</label>
-                            <select id="marketType" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none">
-                                <option value="2">Over 2.5 (Parate)</option>
-                                <option value="3">Over 3.5 (Parate)</option>
-                                <option value="4">Over 4.5 (Parate)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1">Media Parate/90m (Base)</label>
-                            <input type="number" step="0.01" id="dyn_base" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="3.10">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-400 mb-1" title="Ratio tiri in porta generati dall'attacco avversario">Ratio xSOT Avversario</label>
-                            <input type="number" step="0.01" id="dyn_ratio" class="w-full bg-dark border border-gray-700 rounded p-2 text-sm focus:border-primary outline-none" value="1.0" placeholder=">1.0 se attacco forte">
-                        </div>
-                        <div class="col-span-2 bg-dark/50 p-3 rounded border border-gray-800">
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Correttivi Contestuali (Parate)</label>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="0.15" class="mod-check form-checkbox text-primary"> <span>Avversario ultra-offensivo (+15%)</span></label>
-                                <label class="flex items-center space-x-2"><input type="checkbox" value="-0.10" class="mod-check form-checkbox text-primary"> <span>Propria Difesa in blocco basso (-10%)</span></label>
-                            </div>
-                        </div>
-                    </div>`;
-            }
-
-            container.innerHTML = html;
+        
+        let p = mean / variance;
+        let r = (mean * mean) / (variance - mean);
+        
+        let cumulativeProb = 0;
+        for (let i = 0; i <= k; i++) {
+            let coefficient = mathGamma(r + i) / (mathGamma(i + 1) * mathGamma(r));
+            let prob = coefficient * Math.pow(p, r) * Math.pow(1 - p, i);
+            cumulativeProb += prob;
         }
+        return cumulativeProb;
+    }
 
-        // --- STREAMING_CHUNK:Running Analysis and Math Engine... ---
-        function runAnalysis() {
-            const model = document.getElementById('analysisModel').value;
-            const quotaBook = parseFloat(document.getElementById('quotaBook').value);
-            const quotaSisal = parseFloat(document.getElementById('quotaSisal').value) || null;
-            const bankroll = parseFloat(document.getElementById('bankroll').value);
+    /**
+     * Approssimazione di Lanczos per la Funzione Gamma.
+     * Necessaria per calcolare i fattoriali di numeri non interi nella Binomiale Negativa.
+     */
+    function mathGamma(z) {
+        let g = 7;
+        let p = [
+            0.99999999999980993, 
+            676.5203681218851, 
+            -1259.1392167224028,
+            771.32342877765313, 
+            -176.61502916214059, 
+            12.507343278686905,
+            -0.13857109526572012, 
+            9.9843695780195716e-6, 
+            1.5056327351493116e-7
+        ];
+        if (z < 0.5) return Math.PI / (Math.sin(Math.PI * z) * mathGamma(1 - z));
+        z -= 1;
+        let x = p[0];
+        for (let i = 1; i < g + 2; i++) { 
+            x += p[i] / (z + i); 
+        }
+        let t = z + g + 0.5;
+        return Math.sqrt(2 * Math.PI) * Math.pow(t, z + 0.5) * Math.exp(-t) * x;
+    }
 
-            if (!quotaBook || isNaN(quotaBook) || !bankroll) {
-                alert("Inserisci Quota Esecuzione e Bankroll per procedere.");
-                return;
-            }
+    // ==========================================
+    // RENDERING DINAMICO DELL'INTERFACCIA
+    // ==========================================
+    
+    /**
+     * Questa funzione legge il valore del menu a tendina "Seleziona Protocollo"
+     * e inietta il codice HTML corrispondente ai campi di input specifici per quel protocollo.
+     */
+    function renderModelInputs() {
+        const model = document.getElementById("analysisModel").value;
+        const container = document.getElementById("dynamic-inputs");
+        let html = "";
 
-            // Extract Target Name (Team or Player) to append to Market Name
-            let targetName = "";
-            if (document.getElementById('dyn_player')) {
-                targetName = " - " + (document.getElementById('dyn_player').value || "Giocatore/Portiere");
-            } else if (document.getElementById('dyn_team')) {
-                targetName = " (" + document.getElementById('dyn_team').value + ")";
-            }
-
-            const marketElement = document.getElementById('marketType');
-            let marketValue;
-            let mText = "";
-            
-            if (model === 'shots_match') {
-                marketValue = document.getElementById('marketType').value;
-                mText = "Over " + marketValue + " Tiri Totali";
-                marketValue = Math.floor(parseFloat(marketValue)); 
-            } else {
-                marketValue = marketElement.value;
-                mText = marketElement.options[marketElement.selectedIndex].text + targetName;
-            }
-
-            // Calculate Checks
-            let prob_modello = 0;
-            let final_metric = 0;
-            let textOutput = "";
-            let modsSum = 0;
-            
-            document.querySelectorAll('.mod-check:checked').forEach(cb => {
-                modsSum += parseFloat(cb.value);
-            });
-
-            if (model === 'match_goals') {
-                const xgH = parseFloat(document.getElementById('xgHome').value || 0);
-                const xgA = parseFloat(document.getElementById('xgAway').value || 0);
-                final_metric = xgH + xgA; 
-                
-                if (marketValue === 'over25') prob_modello = 1 - poissonCDF(2, final_metric);
-                else if (marketValue === 'under25') prob_modello = poissonCDF(2, final_metric);
-                else if (marketValue === 'over15') prob_modello = 1 - poissonCDF(1, final_metric);
-                
-                textOutput = `Parametri: λ_casa=${xgH.toFixed(2)} | λ_trasferta=${xgA.toFixed(2)} | Tot=${final_metric.toFixed(2)}`;
-            
-            } else if (model === 'shots_match' || model === 'sot_match') {
-                const baseH = parseFloat(document.getElementById('dyn_base_H').value || 0);
-                const baseA = parseFloat(document.getElementById('dyn_base_A').value || 0);
-                
-                final_metric = (baseH + baseA);
-                final_metric = final_metric * (1 + modsSum);
-                
-                const k = parseInt(marketValue);
-                if(isNaN(k)) {
-                    alert("Inserisci un valore numerico valido per la linea di mercato.");
-                    return;
-                }
-                prob_modello = 1 - poissonCDF(k, final_metric);
-                textOutput = `Proiezione Base (Casa+Trasf): ${(baseH+baseA).toFixed(2)} | Correttivi: ${(modsSum>0?'+':'')}${(modsSum*100).toFixed(0)}% | Metrica Finale: ${final_metric.toFixed(2)}`;
-                
-            } else {
-                const base = parseFloat(document.getElementById('dyn_base').value || 0);
-                const ratio = parseFloat(document.getElementById('dyn_ratio').value || 1);
-                
-                if (model === 'team_goals' || model === 'corners' || model === 'sot_team' || model === 'cards') {
-                    final_metric = base * ratio;
-                    final_metric = final_metric * (1 + modsSum);
-                    
-                    const k = parseInt(marketValue);
-                    prob_modello = 1 - poissonCDF(k, final_metric);
-                    textOutput = `Proiezione Base: ${(base*ratio).toFixed(2)} | Correttivi: ${(modsSum>0?'+':'')}${(modsSum*100).toFixed(0)}% | Metrica Finale: ${final_metric.toFixed(2)}`;
-                
-                } else if (model === 'sot_player' || model === 'fouls_player' || model === 'fouls_suffered') {
-                    const mins = parseFloat(document.getElementById('dyn_mins').value || 90);
-                    const ref = document.getElementById('dyn_ref') ? parseFloat(document.getElementById('dyn_ref').value || 1) : 1;
-                    
-                    final_metric = base * (mins/90) * ratio * ref;
-                    final_metric = final_metric * (1 + modsSum);
-                    
-                    const k = parseInt(marketValue);
-                    prob_modello = 1 - poissonCDF(k, final_metric);
-                    textOutput = `Base/90m: ${base} | Minuti: ${mins} | Ratio: ${ratio} | Correttivi: ${(modsSum>0?'+':'')}${(modsSum*100).toFixed(0)}% | Metrica Finale: ${final_metric.toFixed(2)}`;
-                
-                } else if (model === 'saves') {
-                    final_metric = base * ratio;
-                    final_metric = final_metric * (1 + modsSum);
-                    
-                    const k = parseInt(marketValue);
-                    prob_modello = 1 - poissonCDF(k, final_metric);
-                    textOutput = `Base/90m: ${base} | Ratio xSOT Avv: ${ratio} | Correttivi: ${(modsSum>0?'+':'')}${(modsSum*100).toFixed(0)}% | Metrica Finale (xSaves): ${final_metric.toFixed(2)}`;
-                }
-            }
-
-            // Calculations
-            const prob_impl = 1 / quotaBook;
-            const quota_equa = 1 / prob_modello;
-            const edge = prob_modello - prob_impl;
-            const edgePct = (edge * 100).toFixed(2);
-            const ev = (prob_modello * quotaBook) - 1;
-            const evPct = (ev * 100).toFixed(2);
-            
-            // Kelly Formula
-            const kelly = edge / (quotaBook - 1);
-            let kelly_mezzo = kelly * 0.5;
-            const kellyPct = (kelly_mezzo * 100).toFixed(2);
-
-            // Filters & Caps
-            let cap_fascia = 0;
-            let esito = "BET QUALIFICATO";
-            let alertMsg = "";
-            let final_stake = 0;
-
-            if (quotaBook < 1.70) {
-                esito = "NO BET"; alertMsg = "Quota insufficiente (< 1.70). Il protocollo sconsiglia giocate ad alta varianza.";
-            } else if (ev <= 0) {
-                esito = "NO BET"; alertMsg = "Valore Atteso (EV) negativo o nullo.";
-            } else if (edge < 0.03) {
-                esito = "NO BET"; alertMsg = "Edge < 3%. Margine insufficiente.";
-            } else {
-                // Determine Cap strictly based on Edge
-                if (edge >= 0.07) cap_fascia = 0.20;
-                else if (edge >= 0.03) cap_fascia = 0.12;
-
-                final_stake = Math.min(kelly_mezzo, cap_fascia);
-                if (final_stake <= 0) {
-                    esito = "NO BET"; alertMsg = "Stake calcolato nullo o negativo.";
-                }
-            }
-
-            const stakePct = (final_stake * 100).toFixed(2);
-            const stakeEur = (final_stake * bankroll).toFixed(2);
-
-            // Construct Template
-            const tCasa = document.getElementById('teamHome').value || "Casa";
-            const tAway = document.getElementById('teamAway').value || "Trasferta";
-            const tComp = document.getElementById('competition').value || "Campionato";
-            const tDate = document.getElementById('matchDate').value;
-            const tRef = document.getElementById('referee') ? document.getElementById('referee').value : "N/D";
-            const tLineups = document.getElementById('lineups') ? document.getElementById('lineups').value : "Nessuna annotazione";
-            
-            let htmlReport = `
-                <div class="bg-dark border border-gray-700 p-4 rounded text-gray-300 text-left">
-                    <h3 class="text-white font-bold mb-2 border-b border-gray-700 pb-1">SEZIONE A — CHECK</h3>
-                    <p>[✓] Quota Analizzata: ${quotaBook}</p>
-                    ${quotaSisal ? `<p class="text-gray-400">[i] Quota Sisal/AAMS (Ref): ${quotaSisal}</p>` : ''}
-                    
-                    <h3 class="text-white font-bold mt-4 mb-2 border-b border-gray-700 pb-1">SEZIONE B — DATI</h3>
-                    <p>Match: ${tCasa} vs ${tAway} | ${tComp} | ${tDate}</p>
-                    <p>Arbitro: <span class="text-primary">${tRef}</span></p>
-                    <p class="mt-1 text-xs text-gray-400 italic">Formazioni/Assenze: ${tLineups}</p>
-                    <p class="text-primary mt-2">${textOutput}</p>
-                    
-                    <h3 class="text-white font-bold mt-4 mb-2 border-b border-gray-700 pb-1">SEZIONE C — CALCOLI</h3>
-                    <p>Mercato: ${mText}</p>
-                    <p>p(reale): ${(prob_modello*100).toFixed(2)}% → Quota equa: ${quota_equa.toFixed(2)}</p>
-                    <p>Quota Esecuzione: ${quotaBook} (p_imp: ${(prob_impl*100).toFixed(2)}%)</p>
-                    <p>Edge: <span class="font-bold ${edge>0?'text-success':'text-danger'}">${edgePct}%</span> | EV: <span class="font-bold ${ev>0?'text-success':'text-danger'}">${evPct}%</span></p>
-                    <p>Kelly/2: ${kellyPct}% | Cap Fascia max: ${(cap_fascia*100).toFixed(1)}%</p>
-                    
-                    <h3 class="text-white font-bold mt-4 mb-2 border-b border-gray-700 pb-1">SEZIONE D — VERDETTO</h3>
-                    <div class="p-3 rounded mt-2 ${esito==='NO BET' ? 'bg-danger/20 border border-danger/50 text-danger' : 'bg-success/20 border border-success/50 text-success'} font-bold text-lg">
-                        ${esito}
+        // 1. MATCH GOALS (Classico Under/Over 1.5, 2.5 ecc.)
+        if (model === "match_goals") {
+            html = `
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 mb-2">Linea di Mercato</label>
+                    <input type="text" id="dyn_linea" class="input-dark" value="Over 2.5">
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-2">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">xG Normalizzato (Casa)</label>
+                        <input type="number" step="0.01" id="dyn_xg_home" class="input-dark" placeholder="Es. 1.45">
                     </div>
-                    ${alertMsg ? `<p class="mt-2 text-warning"><i class="fa-solid fa-triangle-exclamation"></i> ${alertMsg}</p>` : ''}
-                    ${esito !== 'NO BET' ? `<p class="mt-2 text-white font-bold">STAKE CONSIGLIATO: ${stakePct}% Bankroll (€ ${stakeEur})</p>` : ''}
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">xG Normalizzato (Trasferta)</label>
+                        <input type="number" step="0.01" id="dyn_xg_away" class="input-dark" placeholder="Es. 1.10">
+                    </div>
                 </div>
             `;
-
-            document.getElementById('resultsPlaceholder').classList.add('hidden');
-            const resContent = document.getElementById('resultsContent');
-            resContent.innerHTML = htmlReport;
-            resContent.classList.remove('hidden');
-            document.getElementById('copyBtn').style.display = 'block';
+        } 
+        
+        // 2. TEAM GOALS (Over 1.5 Squadra)
+        else if (model === "team_goals") {
+            html = `
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Squadra Analizzata</label>
+                        <select id="dyn_target" class="input-dark">
+                            <option value="Casa">Squadra in Casa</option>
+                            <option value="Trasferta">Squadra in Trasferta</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Linea Mercato</label>
+                        <input type="text" id="dyn_linea" class="input-dark" value="Over 1.5 Team">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Media Gol Fatti</label>
+                        <input type="number" step="0.01" id="dyn_media" class="input-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Ratio Gol Subiti Avversario (vs Lega)</label>
+                        <input type="number" step="0.01" id="dyn_ratio" class="input-dark" value="1.0">
+                    </div>
+                </div>
+                <div class="mt-6 bg-gray-800 border border-gray-700 p-5 rounded-lg text-sm grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.08"> Modulo Iper-Offensivo (+8%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="0.10"> Pressing Alto e Riconquista (+10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod3" value="0.12"> Contropiede vs Linea Alta (+12%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod4" value="-0.10"> Avversario in Low Block (-10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod5" value="0.07"> Assenza Difensore Centrale Avv (+7%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod6" value="-0.04"> Fatigue (< 72h riposo) (-4%)</label>
+                </div>
+            `;
+        }
+        
+        // 3. CORNERS (Match o Singola Squadra)
+        else if (model === "corners") {
+            html = `
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Target Analisi</label>
+                        <select id="dyn_target" class="input-dark">
+                            <option value="Match">Match Totali (Somma)</option>
+                            <option value="Casa">Solo Team Casa</option>
+                            <option value="Trasferta">Solo Team Trasferta</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Linea Mercato</label>
+                        <input type="text" id="dyn_linea" class="input-dark" value="Over 9.5">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Media Corner Base (μ)</label>
+                        <input type="number" step="0.01" id="dyn_media" class="input-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Ratio Concessione Avversario</label>
+                        <input type="number" step="0.01" id="dyn_ratio" class="input-dark" value="1.0">
+                    </div>
+                </div>
+                <div class="mt-6 bg-gray-800 border border-gray-700 p-5 rounded-lg text-sm grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.08"> Volume Cross Alto (>20) (+8%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="0.10"> Avv. blocca molti tiri (>5) (+10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod3" value="0.05"> Arbitro Permissivo (+5%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod4" value="-0.05"> Arbitro Severo (-5%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod5" value="-0.10"> Modulo Ultra-Difensivo (-10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod6" value="0.03"> Campo Largo (>68m) (+3%)</label>
+                </div>
+            `;
+        }
+        
+        // 4. SHOTS TOTAL MATCH (Linea Numerica Manuale)
+        else if (model === "shots_total_match") {
+            html = `
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 mb-2">Linea Tiri Totali (Manuale)</label>
+                    <input type="number" step="0.5" id="dyn_linea_num" class="input-dark" placeholder="Es. 25.5">
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Media Tiri Fatti (Casa)</label>
+                        <input type="number" step="0.01" id="dyn_xg_home" class="input-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Media Tiri Fatti (Trasferta)</label>
+                        <input type="number" step="0.01" id="dyn_xg_away" class="input-dark">
+                    </div>
+                </div>
+                <div class="mt-6 bg-gray-800 border border-gray-700 p-5 rounded-lg text-sm grid grid-cols-1 gap-4">
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.05"> Ritmo Gara Previsto Alto (+5%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="-0.08"> Entrambe in Low Block (-8%)</label>
+                </div>
+            `;
+        }
+        
+        // 5. SHOTS ON TARGET TOTAL MATCH
+        else if (model === "sot_total_match") {
+            html = `
+                <div>
+                    <label class="block text-xs font-bold text-gray-400 mb-2">Linea Tiri In Porta Totali Match</label>
+                    <select id="dyn_linea" class="input-dark">
+                        <option value="Over 7.5">Over 7.5 SOT</option>
+                        <option value="Over 8.5">Over 8.5 SOT</option>
+                        <option value="Over 9.5">Over 9.5 SOT</option>
+                        <option value="Over 10.5">Over 10.5 SOT</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Media SOT Fatti (Casa)</label>
+                        <input type="number" step="0.01" id="dyn_xg_home" class="input-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Media SOT Fatti (Trasferta)</label>
+                        <input type="number" step="0.01" id="dyn_xg_away" class="input-dark">
+                    </div>
+                </div>
+                <div class="mt-6 bg-gray-800 border border-gray-700 p-5 rounded-lg text-sm grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.05"> Distanza Media Tiro Bassa (+5%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="-0.07"> Tiri frequenti da fuori (-7%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod3" value="-0.04"> Schedule Fatigue Generale (-4%)</label>
+                </div>
+            `;
+        }
+        
+        // 6. SHOTS ON TARGET TEAM
+        else if (model === "sot_team") {
+            html = `
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Squadra Analizzata</label>
+                        <select id="dyn_target" class="input-dark">
+                            <option value="Casa">Squadra in Casa</option>
+                            <option value="Trasferta">Squadra in Trasferta</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Linea Mercato</label>
+                        <input type="text" id="dyn_linea" class="input-dark" value="Over 4.5">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Media SOT Fatti (xS_Team)</label>
+                        <input type="number" step="0.01" id="dyn_media" class="input-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Ratio Concessione Avversario</label>
+                        <input type="number" step="0.01" id="dyn_ratio" class="input-dark" value="1.0">
+                    </div>
+                </div>
+                <div class="mt-6 bg-gray-800 border border-gray-700 p-5 rounded-lg text-sm grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="-0.05"> Stanchezza (Riposo <72h) (-5%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="-0.10"> Avversario in Low Block (-10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod3" value="0.08"> Pressione/Difesa Alta Avv. (+8%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod4" value="-0.08"> Assenza Tiratore/Regista Chiave (-8%)</label>
+                </div>
+            `;
+        }
+        
+        // 7, 8, 9, 10. MODELLI INDIVIDUALI (Giocatori e Portieri)
+        else if (model === "sot_player" || model === "fouls_comm" || model === "fouls_suff" || model === "saves") {
             
-            if(esito !== 'NO BET') {
-                document.getElementById('quickAddContainer').classList.remove('hidden');
-                currentAnalysisCache = {
-                    date: tDate.split('T')[0],
-                    match: `${tCasa} vs ${tAway}`,
-                    comp: tComp,
-                    market: mText,
-                    q_in: quotaBook,
-                    stake: stakeEur
-                };
-            } else {
-                document.getElementById('quickAddContainer').classList.add('hidden');
-            }
+            // Configurazione dinamica delle etichette in base al sottomodello scelto
+            let labelPlayer = "Nome Giocatore";
+            let labelMedia = "Media SOT / 90 min";
+            let labelRatio = "Ratio Conc. Avversario in Zona";
+            let defaultLinea = "Over 0.5";
+            let modifiersHtml = "";
 
-            lastOutputText = resContent.innerText;
-        }
-
-        // --- STREAMING_CHUNK:UI Interactions & Register Functions... ---
-        function copyOutput() {
-            navigator.clipboard.writeText(lastOutputText).then(() => {
-                const btn = document.getElementById('copyBtn');
-                btn.innerHTML = '<i class="fa-solid fa-check mr-1"></i> Copiato!';
-                setTimeout(() => btn.innerHTML = '<i class="fa-regular fa-copy mr-1"></i> Copia Template', 2000);
-            });
-        }
-
-        function switchTab(tab) {
-            ['analisi', 'registro', 'kpi'].forEach(t => {
-                document.getElementById(`view-${t}`).classList.add('hidden');
-                document.getElementById(`tab-${t}`).classList.remove('active', 'border-b-2', 'border-primary', 'text-primary');
-                document.getElementById(`tab-${t}`).classList.add('text-gray-400');
-                document.getElementById(`mob-tab-${t}`).classList.remove('active', 'border-b-2', 'border-primary', 'text-primary');
-                document.getElementById(`mob-tab-${t}`).classList.add('text-gray-400');
-            });
-
-            document.getElementById(`view-${tab}`).classList.remove('hidden');
-            
-            const activeClasses = ['active', 'border-b-2', 'border-primary', 'text-primary'];
-            document.getElementById(`tab-${tab}`).classList.remove('text-gray-400');
-            document.getElementById(`tab-${tab}`).classList.add(...activeClasses);
-            document.getElementById(`mob-tab-${tab}`).classList.remove('text-gray-400');
-            document.getElementById(`mob-tab-${tab}`).classList.add(...activeClasses);
-        }
-
-        function transferToRegister() {
-            if(!currentAnalysisCache) return;
-            document.getElementById('m_date').value = currentAnalysisCache.date;
-            document.getElementById('m_match').value = currentAnalysisCache.match;
-            document.getElementById('m_market').value = currentAnalysisCache.market;
-            document.getElementById('m_quota').value = currentAnalysisCache.q_in;
-            document.getElementById('m_stake').value = currentAnalysisCache.stake;
-            document.getElementById('m_result').value = "Attesa";
-            
-            openAddBetModal();
-        }
-
-        function openAddBetModal() {
-            const modal = document.getElementById('addBetModal');
-            const content = document.getElementById('addBetModalContent');
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
-            }, 10);
-        }
-
-        function closeAddBetModal() {
-            const modal = document.getElementById('addBetModal');
-            const content = document.getElementById('addBetModalContent');
-            modal.classList.add('opacity-0');
-            content.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        function saveBet() {
-            const bet = {
-                id: Date.now(),
-                date: document.getElementById('m_date').value,
-                match: document.getElementById('m_match').value,
-                market: document.getElementById('m_market').value,
-                quota: parseFloat(document.getElementById('m_quota').value),
-                stake: parseFloat(document.getElementById('m_stake').value),
-                result: document.getElementById('m_result').value
-            };
-
-            if(!bet.date || !bet.match || isNaN(bet.quota) || isNaN(bet.stake)) {
-                alert("Compila tutti i campi obbligatori (Data, Match, Quota, Stake).");
-                return;
-            }
-
-            // Calc P&L
-            if (bet.result === 'Vinto') bet.pl = bet.stake * (bet.quota - 1);
-            else if (bet.result === 'Perso') bet.pl = -bet.stake;
-            else bet.pl = 0;
-
-            state.bets.unshift(bet);
-            localStorage.setItem('matchAnalystData_bets', JSON.stringify(state.bets));
-            
-            renderBetsTable();
-            updateKPIs();
-            closeAddBetModal();
-        }
-
-        function deleteBet(id) {
-            state.bets = state.bets.filter(b => b.id !== id);
-            localStorage.setItem('matchAnalystData_bets', JSON.stringify(state.bets));
-            renderBetsTable();
-            updateKPIs();
-        }
-
-        // --- STREAMING_CHUNK:Rendering KPIs and Tables... ---
-        function renderBetsTable() {
-            const tbody = document.getElementById('betsTableBody');
-            tbody.innerHTML = '';
-            
-            state.bets.forEach(bet => {
-                let resClass = 'text-warning';
-                if (bet.result === 'Vinto') resClass = 'text-success';
-                else if (bet.result === 'Perso') resClass = 'text-danger';
-                else if (bet.result === 'Void') resClass = 'text-gray-400';
-
-                let plClass = bet.pl > 0 ? 'text-success' : (bet.pl < 0 ? 'text-danger' : 'text-gray-400');
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="px-4 py-3">${bet.date}</td>
-                    <td class="px-4 py-3 font-medium text-white">${bet.match}</td>
-                    <td class="px-4 py-3">${bet.market}</td>
-                    <td class="px-4 py-3 text-center">${bet.quota.toFixed(2)}</td>
-                    <td class="px-4 py-3 text-center">€${bet.stake.toFixed(2)}</td>
-                    <td class="px-4 py-3 font-bold ${resClass}">${bet.result}</td>
-                    <td class="px-4 py-3 text-right font-bold ${plClass}">${bet.pl > 0 ? '+' : ''}${bet.pl.toFixed(2)}</td>
-                    <td class="px-4 py-3 text-center">
-                        <button onclick="deleteBet(${bet.id})" class="text-gray-500 hover:text-danger transition-colors"><i class="fa-solid fa-trash"></i></button>
-                    </td>
+            if (model === "fouls_comm") {
+                labelMedia = "Media Falli Commessi / 90m";
+                labelRatio = "Ratio Falli Subiti (Avv. Diretto)";
+                defaultLinea = "Over 1.5";
+                modifiersHtml = `
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.10"> Esterno/Terzino vs Ala rapida (+10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="0.12"> Mediano vs Trequartista (+12%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod3" value="-0.10"> Squadra Avv. in Low Block (-10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod4" value="0.10"> Arbitro Severo (+10%)</label>
                 `;
-                tbody.appendChild(tr);
-            });
+            } else if (model === "fouls_suff") {
+                labelMedia = "Media Falli Subiti / 90m";
+                labelRatio = "Ratio Falli Commessi (Avv. Diretto)";
+                defaultLinea = "Over 2.5";
+                modifiersHtml = `
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.10"> Propensione Dribbling/1v1 Alta (+10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="0.10"> Squadra in Contropiede vs LowBlock (+10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod3" value="-0.10"> Arbitro Permissivo (-10%)</label>
+                `;
+            } else if (model === "saves") {
+                labelPlayer = "Nome Portiere";
+                labelMedia = "Media Parate (Saves) / 90m";
+                labelRatio = "Ratio Tiri in Porta Avversario";
+                defaultLinea = "Over 2.5";
+                modifiersHtml = `
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.10"> Attacco Avv. Elite (+10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="-0.15"> Avversario Bottom/Difensivo (-15%)</label>
+                `;
+            } else { 
+                // Default è sot_player
+                modifiersHtml = `
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.10"> Rigorista Principale in campo (+10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="0.05"> Battitore Punizioni Dirette (+5%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod3" value="0.10"> Avanzamento Tattico (es. Ala a Punta) (+10%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod4" value="-0.08"> Arretramento Tattico (-8%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod5" value="-0.08"> Avversario in Low Block (-8%)</label>
+                `;
+            }
+
+            html = `
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">${labelPlayer}</label>
+                        <input type="text" id="dyn_target" class="input-dark" placeholder="Es. Rafael Leao">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Linea Mercato</label>
+                        <input type="text" id="dyn_linea" class="input-dark" value="${defaultLinea}">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">${labelMedia}</label>
+                        <input type="number" step="0.01" id="dyn_media" class="input-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">${labelRatio}</label>
+                        <input type="number" step="0.01" id="dyn_ratio" class="input-dark" value="1.0">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Minuti Previsti in Campo</label>
+                        <input type="number" id="dyn_mins" class="input-dark" value="90">
+                    </div>
+                </div>
+                <div class="mt-6 bg-gray-800 border border-gray-700 p-5 rounded-lg text-sm grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    ${modifiersHtml}
+                </div>
+            `;
+        }
+        
+        // 11. CARDS (Cartellini Match o Team)
+        else if (model === "cards") {
+            html = `
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Target Analisi</label>
+                        <select id="dyn_target" class="input-dark">
+                            <option value="Match">Match Totali</option>
+                            <option value="Casa">Team Casa</option>
+                            <option value="Trasferta">Team Trasferta</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Linea Mercato</label>
+                        <input type="text" id="dyn_linea" class="input-dark" value="Over 4.5">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Media Base Cartellini</label>
+                        <input type="number" step="0.01" id="dyn_media" class="input-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">Ratio Severità Arbitro</label>
+                        <input type="number" step="0.01" id="dyn_ratio" class="input-dark" value="1.0">
+                    </div>
+                </div>
+                <div class="mt-6 bg-gray-800 border border-gray-700 p-5 rounded-lg text-sm grid grid-cols-1 gap-4">
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod1" value="0.15"> Scontro Salvezza / Derby molto teso (+15%)</label>
+                    <label class="flex items-center gap-3 text-gray-300 font-medium cursor-pointer"><input type="checkbox" id="mod2" value="-0.10"> Partita a Bassa Intensità / Motivazione Nulla (-10%)</label>
+                </div>
+            `;
+        }
+        
+        // Inietta l'HTML costruito nel container
+        container.innerHTML = html;
+    }
+
+    // ==========================================
+    // MOTORE CENTRALE E LOGICA DI CALCOLO VALORE
+    // ==========================================
+    
+    function runAnalysis() {
+        // Estrai Valori Base Globali
+        const model = document.getElementById("analysisModel").value;
+        const bookQuota = parseFloat(document.getElementById("quotaBook").value);
+        const bankroll = parseFloat(document.getElementById("bankroll").value);
+        
+        const homeT = document.getElementById("homeTeam").value || "Squadra Casa";
+        const awayT = document.getElementById("awayTeam").value || "Squadra Trasferta";
+        
+        // Validazione Input Obbligatori
+        if(!bookQuota || !bankroll) { 
+            alert("ERRORE DI COMPILAZIONE:\nÈ obbligatorio inserire la Quota del Bookmaker e il Bankroll disponibile per procedere con l'analisi."); 
+            return; 
         }
 
-        function updateKPIs() {
-            const closedBets = state.bets.filter(b => b.result !== 'Attesa' && b.result !== 'Void');
-            const totalBets = closedBets.length;
-            
-            let totalStake = 0;
-            let totalPL = 0;
+        // Variabili per i risultati matematici
+        let probReale_over = 0;
+        let baseline = 0;
+        let lineTargetNumber = 0;
+        let mercatoReport = "";
+        let targetReport = `${homeT} vs ${awayT}`;
+        let useNegativeBinomial = false;
 
-            closedBets.forEach(b => {
-                totalStake += b.stake;
-                totalPL += b.pl;
-            });
-
-            const roi = totalStake > 0 ? (totalPL / totalStake) * 100 : 0;
-            const yieldVal = totalBets > 0 ? (totalPL / totalBets) : 0;
-            const winRate = totalBets > 0 ? (closedBets.filter(b => b.result === 'Vinto').length / totalBets) * 100 : 0;
-
-            document.getElementById('kpi-roi').innerText = `${roi > 0 ? '+' : ''}${roi.toFixed(2)}%`;
-            document.getElementById('kpi-roi').className = `text-3xl font-bold ${roi > 0 ? 'text-success' : (roi < 0 ? 'text-danger' : 'text-gray-300')}`;
-            
-            document.getElementById('kpi-winrate').innerText = `${winRate.toFixed(1)}%`;
-            document.getElementById('kpi-winrate').className = `text-3xl font-bold ${winRate > 50 ? 'text-success' : (winRate < 40 ? 'text-danger' : 'text-gray-300')}`;
-
-            document.getElementById('kpi-yield').innerText = `€${yieldVal.toFixed(2)}`;
-            document.getElementById('kpi-count').innerText = totalBets;
+        // 1. Somma di tutti i Modificatori Tattici e Ambientali (Checkbox)
+        let totalModPercentage = 0;
+        // Itero fino a 10 per coprire tutti i possibili id (es. mod1, mod2... mod10)
+        for (let i = 1; i <= 10; i++) {
+            let checkboxElement = document.getElementById("mod" + i);
+            if (checkboxElement && checkboxElement.checked) {
+                totalModPercentage += parseFloat(checkboxElement.value);
+            }
         }
-    </script>
+
+        // 2. Lettura Parametri e Calcolo 'Baseline' in base al Modello
+        
+        // GRUPPO A: Modelli basati sulla somma di due Expected Goals / Shots (Casa + Trasferta)
+        if (model === "match_goals" || model === "shots_total_match" || model === "sot_total_match") {
+            
+            let lambda_home = parseFloat(document.getElementById("dyn_xg_home").value || 0);
+            let lambda_away = parseFloat(document.getElementById("dyn_xg_away").value || 0);
+            
+            if (model === "shots_total_match") {
+                lineTargetNumber = parseFloat(document.getElementById("dyn_linea_num").value || 25.5);
+                mercatoReport = "Over " + lineTargetNumber + " Tiri Totali";
+                useNegativeBinomial = true; // Alta Varianza sui Tiri
+            } else {
+                let lineaStr = document.getElementById("dyn_linea").value || "Over 2.5";
+                mercatoReport = lineaStr;
+                // Estrae il numero (es. 2.5) dalla stringa "Over 2.5"
+                lineTargetNumber = parseFloat(lineaStr.match(/\d+\.\d+/)?.[0] || 2.5);
+                
+                if (model === "sot_total_match") {
+                    useNegativeBinomial = true; // Alta Varianza sui SOT
+                }
+            }
+
+            // Calcolo baseline corretta
+            baseline = (lambda_home + lambda_away) * (1 + totalModPercentage);
+            
+            // Calcolo Probabilità
+            let under_prob = 0;
+            if (useNegativeBinomial) {
+                under_prob = calcCumulativeNegativeBinomial_SOT(Math.floor(lineTargetNumber), baseline, 1.3);
+            } else {
+                under_prob = calcCumulativePoisson(Math.floor(lineTargetNumber), baseline);
+            }
+            probReale_over = 1 - under_prob;
+
+        } 
+        // GRUPPO B: Modelli basati su singola Media e Ratio di Concessione
+        else {
+            
+            let mediaStat = parseFloat(document.getElementById("dyn_media").value || 0);
+            let ratioConc = parseFloat(document.getElementById("dyn_ratio").value || 1);
+            let targetEl = document.getElementById("dyn_target");
+            
+            // Gestione Target Output (Select vs Text Input)
+            if (targetEl) {
+                if (targetEl.tagName === "SELECT") {
+                    targetReport = targetEl.options[targetEl.selectedIndex].text;
+                    if(targetEl.value === "Casa") targetReport = homeT;
+                    if(targetEl.value === "Trasferta") targetReport = awayT;
+                } else {
+                    targetReport = targetEl.value || "Giocatore Selezionato";
+                }
+            }
+
+            // Gestione Minuti (Se applicabile, altrimenti 90/90 = 1)
+            let minAdjust = 1;
+            let minsEl = document.getElementById("dyn_mins");
+            if (minsEl) {
+                minAdjust = parseFloat(minsEl.value || 90) / 90;
+            }
+            
+            // Calcolo baseline corretta
+            baseline = mediaStat * ratioConc * minAdjust * (1 + totalModPercentage);
+            
+            let lineaStr = document.getElementById("dyn_linea").value;
+            lineTargetNumber = parseFloat(lineaStr.match(/\d+\.\d+/)?.[0] || 0.5);
+            mercatoReport = lineaStr;
+
+            // Calcolo Probabilità
+            let under_prob = 0;
+            if (model === "corners") {
+                under_prob = calcCumulativeNegativeBinomial_SOT(Math.floor(lineTargetNumber), baseline, 1.4);
+                useNegativeBinomial = true;
+            } else if (model === "sot_team") {
+                under_prob = calcCumulativeNegativeBinomial_SOT(Math.floor(lineTargetNumber), baseline, 1.25);
+                useNegativeBinomial = true;
+            } else {
+                // Giocatori, Falli, Parate, Goal Team, Cartellini -> Poisson 
+                under_prob = calcCumulativePoisson(Math.floor(lineTargetNumber), baseline);
+            }
+            probReale_over = 1 - under_prob;
+        }
+
+        // ==========================================
+        // 3. CALCOLO EDGE, EV, E KELLY/2
+        // ==========================================
+        let quota_equa = 1 / probReale_over;
+        let probImplicitaMercato = 1 / bookQuota;
+        
+        let edge = (bookQuota / quota_equa) - 1; 
+        let ev = (probReale_over * bookQuota) - 1;
+        let edgePercent = edge * 100;
+        
+        // Formula di Kelly Completa
+        let probFallimento = 1 - probReale_over;
+        let vincitaNettaUnita = bookQuota - 1;
+        let kellyIntero = ((probReale_over * vincitaNettaUnita) - probFallimento) / vincitaNettaUnita;
+        
+        // Criterio Kelly Mezzato (Kelly / 2) come da direttiva
+        let kellyHalfPercent = (kellyIntero / 2) * 100;
+
+        // Gestione Livelli di Rischio e CAP di Sicurezza
+        let capSicurezza = 0;
+        let verdettoStr = "NO BET / NESSUNA GIOCATA CONSIGLIATA";
+        let stakeDefinitivo = 0;
+        let alertValore = "VALORE ASSENTE O MARGINE TROPPO BASSO";
+
+        if (edgePercent >= 3.0) {
+            alertValore = "VALORE PRESENTE (Edge > 3%)";
+            
+            if (edgePercent <= 5.0) {
+                capSicurezza = 5;  // Basso
+            } else if (edgePercent <= 10.0) {
+                capSicurezza = 12; // Medio
+            } else {
+                capSicurezza = 20; // Alto
+            }
+
+            // Lo stake è il minimo tra Kelly/2 e il Cap Massimo della Fascia. Non può essere negativo.
+            stakeDefinitivo = Math.max(Math.min(kellyHalfPercent, capSicurezza), 0);
+            
+            if (stakeDefinitivo > 0) {
+                verdettoStr = "BET QUALIFICATA - SEGNALE POSITIVO";
+            }
+        }
+
+        let importoMonetario = (bankroll * stakeDefinitivo) / 100;
+
+        // ==========================================
+        // 4. GENERAZIONE OUTPUT NEL TERMINALE
+        // ==========================================
+        let outputTesto = 
+`=========================================================
+  REFERTO ANALITICO - MATCH ANALYST PRO
+=========================================================
+[A] DATI INGRESSO E TARGET
+ Match:             ${homeT} vs ${awayT}
+ Target Analizzato: ${targetReport}
+ Mercato Richiesto: ${mercatoReport}
+ Quota Bookmaker:   ${bookQuota.toFixed(2)}
+
+[B] CALCOLI DEL MODELLO QUANTITATIVO
+ Distribuzione:     ${useNegativeBinomial ? 'Binomiale Negativa (Regolazione Varianza)' : 'Distribuzione di Poisson (Standard)'}
+ Proiezione Finale: ${baseline.toFixed(3)}
+ Probabilità Calcolata: ${(probReale_over * 100).toFixed(2)}%
+ Quota Equa (Fair): ${quota_equa.toFixed(2)}
+ Probabilità Implicita: ${(probImplicitaMercato * 100).toFixed(2)}%
+
+[C] FILTRI DEL VALORE ATTESO (EDGE / EV)
+ Status:            ${alertValore}
+ Vantaggio (Edge):  ${edgePercent > 0 ? '+' : ''}${edgePercent.toFixed(2)}%
+ Valore Atteso(EV): ${(ev * 100).toFixed(2)}%
+
+[D] GESTIONE BANKROLL E STAKING PLAN
+ Criterio Kelly/2:  ${Math.max(kellyHalfPercent, 0).toFixed(2)}% del Bankroll
+ Cap di Sicurezza:  Max ${capSicurezza}% applicabile
+
+=========================================================
+ >>> VERDETTO: ${verdettoStr}
+ >>> STAKE:    ${stakeDefinitivo.toFixed(2)}% (Pari a €${importoMonetario.toFixed(2)})
+=========================================================`;
+
+        // Aggiorna la vista nel terminale
+        document.getElementById("terminal-output").innerText = outputTesto;
+
+        // Se l'analisi qualifica una giocata valida, salvala in automatico nel registro
+        if (stakeDefinitivo > 0) {
+            let registroData = {
+                data: new Date().toLocaleDateString(),
+                match: `${homeT} vs ${awayT} [${targetReport}]`,
+                mercato: mercatoReport,
+                quota: bookQuota.toFixed(2),
+                stake: `€${importoMonetario.toFixed(2)} (${stakeDefinitivo.toFixed(1)}%)`,
+                esito: 'In Corso',
+                pl: '-'
+            };
+            aggiungiARegistro(registroData);
+        }
+    }
+
+    // ==========================================
+    // GESTIONE REGISTRO OPERATIVO E LOCAL STORAGE
+    // ==========================================
+    
+    /**
+     * Aggiunge un nuovo oggetto riga al Local Storage
+     */
+    function aggiungiARegistro(rowObj) {
+        // Legge lo stato attuale o inizializza un array vuoto
+        let registro = JSON.parse(localStorage.getItem('mapro_registro_v3') || '[]');
+        // Aggiunge la nuova bet in cima alla lista
+        registro.unshift(rowObj);
+        // Salva e ricarica la tabella
+        localStorage.setItem('mapro_registro_v3', JSON.stringify(registro));
+        loadRegister();
+    }
+
+    /**
+     * Carica i dati dal Local Storage e inietta le righe <tr> nella tabella
+     */
+    function loadRegister() {
+        let registro = JSON.parse(localStorage.getItem('mapro_registro_v3') || '[]');
+        let tbody = document.getElementById("register-body");
+        tbody.innerHTML = "";
+        
+        registro.forEach((r, idx) => {
+            // Logica colori per la colonna P&L
+            let plColorClass = "text-gray-400"; // Default
+            if (r.pl.includes("+")) plColorClass = "text-green-400 font-bold";
+            if (r.pl.includes("-") && r.pl.length > 1) plColorClass = "text-red-400 font-bold";
+            
+            let tr = document.createElement("tr");
+            tr.className = "hover:bg-gray-700/60 transition-colors";
+            tr.innerHTML = `
+                <td class="px-6 py-4 border-t border-gray-700/50 whitespace-nowrap">${r.data}</td>
+                <td class="px-6 py-4 border-t border-gray-700/50 font-medium text-white tracking-wide">${r.match}</td>
+                <td class="px-6 py-4 border-t border-gray-700/50 whitespace-nowrap">${r.mercato}</td>
+                <td class="px-6 py-4 border-t border-gray-700/50 font-bold text-gray-200">${r.quota}</td>
+                <td class="px-6 py-4 border-t border-gray-700/50 font-bold text-yellow-400 whitespace-nowrap">${r.stake}</td>
+                <td class="px-6 py-4 border-t border-gray-700/50">
+                    <select class="bg-gray-900 text-xs border border-gray-600 rounded p-2 focus:border-yellow-400 outline-none w-32" onchange="aggiornaEsito(${idx}, this.value)">
+                        <option value="In Corso" ${r.esito === 'In Corso' ? 'selected' : ''}>⏳ In Corso</option>
+                        <option value="Vinta" ${r.esito === 'Vinta' ? 'selected' : ''}>✅ Vinta</option>
+                        <option value="Persa" ${r.esito === 'Persa' ? 'selected' : ''}>❌ Persa</option>
+                        <option value="Void" ${r.esito === 'Void' ? 'selected' : ''}>➖ Void / Null</option>
+                    </select>
+                </td>
+                <td class="px-6 py-4 border-t border-gray-700/50 ${plColorClass} whitespace-nowrap">${r.pl}</td>
+                <td class="px-6 py-4 border-t border-gray-700/50 text-center text-gray-500 cursor-pointer hover:text-red-400 text-xl transition-transform transform hover:scale-110" onclick="eliminaRiga(${idx})" title="Elimina Giocata">🗑️</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    /**
+     * Aggiorna lo stato (Vinta/Persa) dal dropdown e calcola il profitto netto
+     */
+    function aggiornaEsito(idx, nuovoEsito) {
+        let registro = JSON.parse(localStorage.getItem('mapro_registro_v3') || '[]');
+        registro[idx].esito = nuovoEsito;
+        
+        // Estrai il Valore Monetario (Esempio: da "€25.00 (2.5%)" a "25.00")
+        let importoStringa = registro[idx].stake.split(' ')[0];
+        let importoNumerico = parseFloat(importoStringa.replace('€', ''));
+        let quotaGiocata = parseFloat(registro[idx].quota);
+        
+        // Calcolo Matematico P&L
+        if (nuovoEsito === 'Vinta') {
+            let profittoNetto = importoNumerico * (quotaGiocata - 1);
+            registro[idx].pl = "+" + profittoNetto.toFixed(2) + "€";
+        } 
+        else if (nuovoEsito === 'Persa') {
+            registro[idx].pl = "-" + importoNumerico.toFixed(2) + "€";
+        } 
+        else if (nuovoEsito === 'Void') {
+            registro[idx].pl = "0.00€";
+        } 
+        else {
+            registro[idx].pl = "-"; // Riporta allo stato di attesa
+        }
+        
+        localStorage.setItem('mapro_registro_v3', JSON.stringify(registro));
+        loadRegister();
+    }
+
+    /**
+     * Elimina singola riga dal registro
+     */
+    function eliminaRiga(idx) {
+        if(confirm("Vuoi confermare l'eliminazione di questa giocata dal registro operativo?")) {
+            let registro = JSON.parse(localStorage.getItem('mapro_registro_v3') || '[]');
+            registro.splice(idx, 1);
+            localStorage.setItem('mapro_registro_v3', JSON.stringify(registro));
+            loadRegister();
+        }
+    }
+
+    /**
+     * Svuota completamente il LocalStorage e resetta il registro
+     */
+    function clearRegister() {
+        if(confirm("⚠ ATTENZIONE: Sei sicuro di voler formattare TUTTO lo storico del registro operativo? Questa azione eliminerà permanentemente tutti i dati salvati e non è irreversibile.")) {
+            localStorage.removeItem('mapro_registro_v3');
+            loadRegister();
+        }
+    }
+</script>
+
 </body>
 </html>
